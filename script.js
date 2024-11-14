@@ -2,7 +2,7 @@ const formDeposit = document.getElementById("depositForm")
 const transactionSection = document.getElementById("transactionSection")
 const transactionForm = document.getElementById("transactionForm")
 const ul = document.querySelector('ul')
-
+const removeForm = document.getElementById("removeForm")
 //RENDERIZAR TRANSAÇÕES
 async function renderTransfers(transfer, reason){
     const valueThatWillAppearOnScreen = transfer.valueTransfered
@@ -46,7 +46,7 @@ async function depositTransactions() {
     try {
         const response = await fetch("http://localhost:3000/deposits")
         if(!response.ok) throw new Error("Erro ao buscar depósitos!")
-        const deposits = response.json()
+        const deposits = await response.json()
         deposits.forEach(renderDepositTransaction)
     } catch (error) {
         console.log(error.message)
@@ -76,6 +76,7 @@ formDeposit.addEventListener('submit', async (evnt) => {
     const currentBalance = parseFloat(document.getElementById("balance").innerText)
     const valueToBeAdd = parseFloat(document.getElementById("deposit").value)
     if (isNaN(valueToBeAdd) || valueToBeAdd <= 0) {
+        formDeposit.reset()
         return alert('Digite um valor para ser depositado!');
     }
     const allBalance = {
@@ -107,7 +108,7 @@ formDeposit.addEventListener('submit', async (evnt) => {
         formDeposit.reset()
         gettingBalance()
     } catch (error) {
-        console.log(error.message)
+        alert(error.message)
     }
 })
 
@@ -119,7 +120,7 @@ transactionForm.addEventListener('submit', async (evnt) => {
     const valueTransfer = parseFloat(document.getElementById("valueTransaction").value)
     if(!reason || isNaN(valueTransfer) || valueTransfer <= 0|| !isNaN(reason)){
         transactionForm.reset()
-        return alert("ERRO!")
+        return alert("Motivo/Valor inválidos!")
     }
 
     //modificar o saldo atual
@@ -158,6 +159,46 @@ transactionForm.addEventListener('submit', async (evnt) => {
     }
 })
 
+
+removeForm.addEventListener("submit", async (evnt) => {
+    evnt.preventDefault();
+    const idToDelete = document.querySelector("#removeTransaction").value;
+    try {
+        const transactionTable = await fetch(`http://localhost:3000/transactions/${idToDelete}`)
+        if (transactionTable.ok){
+            const response = await fetch(`http://localhost:3000/transactions/${idToDelete}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            if (!response.ok) throw new Error("Erro ao tentar deletar a transação!");
+        }
+        else {
+            console.clear()
+            const responseDepositTable = await fetch(`http://localhost:3000/deposits/${idToDelete}`)
+            if (responseDepositTable.ok){
+                const response = await fetch(`http://localhost:3000/deposits/${idToDelete}`, {
+                    method: "DELETE",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!response.ok) throw new Error("Erro ao tentar deletar o depósito!");
+            }else {
+                throw new Error("ID não encontrado em transações ou depósitos!");
+            }
+        }   
+        ul.innerHTML = ""
+        transactionDataBase()
+        depositTransactions()
+        removeForm.reset()
+    } catch (error) {
+        alert(error.message);
+        console.clear()
+        removeForm.reset()
+    }
+});
 
     gettingBalance()
     depositTransactions()

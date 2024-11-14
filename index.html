@@ -16,21 +16,28 @@
         <section>
             <form id="transactionForm">
                 <label for="text">Motivo:</label>
-                <input name="reason" id="reason" type="text">
+                <input name="reason" id="reason" type="text" placeholder="Motivo da Transferencia">
                 <label for="text">Valor:</label>
-                <input name="valueTransaction" id="valueTransaction" type="text"><br>
+                <input name="valueTransaction" id="valueTransaction" type="text" placeholder="Valor da Transferencia"><br>
                 <button>Registrar Transação</button>
             </form>
             <section>
                 <form id="depositForm">
                     <label for="deposit">Depósito:</label>
-                    <input name="deposit" id="deposit" type="text"><br>
+                    <input name="deposit" id="deposit" type="text" placeholder="Valor do Depósito"><br>
                     <button>Depositar</button>
                 </form>
             </section> <hr>
+            <section>
+                <form id="removeForm">
+                    <label for="deposit">Remover Transação:</label>
+                    <input name="removeTransaction" id="removeTransaction" type="text" placeholder="ID da Transação"><br>
+                    <button>Remover</button>
+                </form>
+            </section> 
         </section> <hr>
         <section id="transactionSection">
-            <h2>Transações</h2>
+            <h2>Transações/Depósitos</h2>
             <ul>
 
             </ul>

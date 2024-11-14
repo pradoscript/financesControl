@@ -1,0 +1,42 @@
+{
+  "balance": [
+    {
+      "value": 34,
+      "id": "1"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "97c2",
+      "valueTransfered": 200,
+      "reason": "agua"
+    },
+    {
+      "id": "cda5",
+      "valueTransfered": 1,
+      "reason": "agua"
+    }
+  ],
+  "deposits": [
+    {
+      "id": "5756",
+      "valueAdded": 10
+    },
+    {
+      "id": "994a",
+      "valueAdded": 2
+    },
+    {
+      "id": "e849",
+      "valueAdded": 10
+    },
+    {
+      "id": "c9b4",
+      "valueAdded": 10
+    },
+    {
+      "id": "127f",
+      "valueAdded": 1
+    }
+  ]
+}

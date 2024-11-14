@@ -6,17 +6,18 @@ const ul = document.querySelector('ul')
 //RENDERIZAR TRANSAÇÕES
 async function renderTransfers(transfer, reason){
     const valueThatWillAppearOnScreen = transfer.valueTransfered
+    const id = transfer.id
     const li = document.createElement("li")
     const span = document.createElement("span")
     const hr = document.createElement("hr")
-    span.innerText = `Transfêrencia realizada com sucesso!\n Valor: -$${valueThatWillAppearOnScreen}\n Motivo: ${reason}`
+    span.innerText = `Transfêrencia realizada com sucesso!\n Valor: -$${valueThatWillAppearOnScreen}\n Motivo: ${reason}\n ID: ${id}`
     li.appendChild(span)
     ul.append(li, hr)
 }
 //PEGAR TRANSFERENCIAS DA DATABASE
 async function transactionDataBase() {
     try {
-        const response = await fetch("http://localhost:3000/transactions").then(res => res.json())
+        const response = await fetch("http://localhost:3000/transactions")
         if (!response.ok) throw new Error("Erro ao buscar transações na database")
         const transactions = await response.json()
         transactions.forEach(renderTransfers)
@@ -30,10 +31,11 @@ async function transactionDataBase() {
 //RENDERIZAR NOVOS DEPÓSITOS
 async function renderDepositTransaction(deposit){
     const valueAdded = deposit.valueAdded
+    const id = deposit.id
     const li = document.createElement("li")
     const span = document.createElement("span")
     const hr = document.createElement("hr")
-    span.innerText = 'Novo depósito, valor: ' + 'R$' + valueAdded
+    span.innerText = `Novo depósito\n valor: R$${valueAdded}\n ID: ${id}`
     li.appendChild(span)
     ul.append(li, hr)
 }
@@ -42,7 +44,7 @@ async function renderDepositTransaction(deposit){
 //PEGAR DEPÓSITOS DA DATA BASE
 async function depositTransactions() {
     try {
-        const response = await fetch("http://localhost:3000/deposits").then(res => res.json())
+        const response = await fetch("http://localhost:3000/deposits")
         if(!response.ok) throw new Error("Erro ao buscar depósitos!")
         const deposits = response.json()
         deposits.forEach(renderDepositTransaction)
@@ -157,10 +159,7 @@ transactionForm.addEventListener('submit', async (evnt) => {
 })
 
 
-try {
     gettingBalance()
     depositTransactions()
     transactionDataBase()
-} catch (error) {
-    alert(`Ocorreu um erro: ${error}`)
-}
+

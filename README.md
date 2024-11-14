@@ -8,5 +8,4 @@
 - Excluir trasnferências! 📤
 - *Todas as 3 funcionalidades estão presentes no Back-End, através da API Json-Server*
 
-**INTERFACE**
 ![interface](interface.png)

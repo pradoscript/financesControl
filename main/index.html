@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanças</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Finances Control</h1>
+            <img src="sif.png" alt="">
+            <p>SALDO: R$<span id="balance">0</span></p>
+        </header>
+        <section>
+            <form id="transactionForm">
+                <label for="text">Motivo:</label>
+                <input name="reason" id="reason" type="text">
+                <label for="text">Valor:</label>
+                <input name="valueTransaction" id="valueTransaction" type="text"><br>
+                <button>Registrar Transação</button>
+            </form>
+            <section>
+                <form id="depositForm">
+                    <label for="deposit">Depósito:</label>
+                    <input name="deposit" id="deposit" type="text"><br>
+                    <button>Depositar</button>
+                </form>
+            </section> <hr>
+        </section> <hr>
+        <section id="transactionSection">
+            <h2>Transações</h2>
+            <ul>
+
+            </ul>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
